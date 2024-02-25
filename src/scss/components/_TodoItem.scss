@@ -1,0 +1,106 @@
+@use "../abstracts/styling" as *;
+
+.personal{
+    background-color: $todo-orange;
+}
+
+.work{
+    background-color: $todo-blue;
+}
+
+.home{
+    background-color: $todo-purple;
+}
+
+.other{
+    background: $todo-green;
+}
+
+.todoItem {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    justify-content: space-between;
+    border-radius: 20px;
+    padding: 1rem 2rem;
+  }
+  
+  .todoInfo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .todoDetails {
+    flex: 1;
+  }
+  
+  .todoDetails header h4 {
+    margin: 0;
+    text-decoration: none; 
+  }
+  
+  .completed header h4 {
+    text-decoration: line-through;
+  }
+  
+  .detailsText {
+    margin: 5px 0;
+    span, time {
+      margin-right: 5px;
+      font-style: italic;
+    }
+  }
+  
+  .customCheckbox {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: #f8f8f8;
+    cursor: pointer;
+    border-radius: 4px; 
+    margin-right: 2rem;
+    position: relative; 
+    user-select: none;
+  
+    &:focus {
+      outline: none;      
+    }
+  
+    &.checked {
+      background-color: #fff;
+  
+      &:after {
+        content: '';
+        position: absolute;
+        left: 25%;
+        top: -50%;
+        width: 10px;
+        height: 20px;
+        border: solid rgb(4, 230, 79);
+        border-width: 0 5px 5px 0;
+        transform: rotate(45deg);
+      }
+    }
+  }
+
+  .actionButtons{
+
+    .edit{
+        cursor: pointer;
+        font-size: 1.8rem;
+        margin-right: 1rem;
+    }
+
+    .delete{
+        cursor: pointer;
+        font-size: 1.8rem;
+        color: rgb(189, 31, 31);
+    }
+  }
+
+  
+
+
+  

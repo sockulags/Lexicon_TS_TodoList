@@ -1,10 +1,9 @@
-import pic from "../assets/todo_icon.svg";
+import { TodoList } from "../components/TodoList";
 
 export function LandingPage() {
   return (
     <div>
-        <button>Add</button>
-        <img src={pic}/>
+       <TodoList/>
     </div>
   );
 }
