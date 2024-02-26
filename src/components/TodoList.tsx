@@ -1,29 +1,9 @@
-import { TodoItem, ITodoItem } from './TodoItem';
+import { TodoItem } from './TodoItem';
+import { tasks, ITodoItem } from "../assets/data/tasks";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const mockTodos: ITodoItem[] = [
-    {
-        id: 1,
-        title: 'Learn TypeScript',
-        category: "work",
-        completed: false,
-        onToggleCompleted: (id) => console.log(`Toggle completed for item ${id}`),
-        onDelete: (id) => console.log(`Delete item ${id}`),
-        onEdit: (id) => console.log(`Edit item ${id}`),
-        author: 'John Doe',
-        createdAt: new Date().toISOString(), 
-      },
-      {
-        id: 2,
-        title: 'Build a React app',
-        category: "personal",
-        completed: true,
-        onToggleCompleted: (id) => console.log(`Toggle completed for item ${id}`),
-        onDelete: (id) => console.log(`Delete item ${id}`),
-        onEdit: (id) => console.log(`Edit item ${id}`),
-        author: 'Jane Smith',
-        createdAt: new Date().toISOString(),
-      },
-];
+
 
 const groupTodosByCategory = (todos: ITodoItem[]): Record<string, ITodoItem[]> => {
     const groups: Record<string, ITodoItem[]> = {};
@@ -36,19 +16,60 @@ const groupTodosByCategory = (todos: ITodoItem[]): Record<string, ITodoItem[]> =
     return groups;
   };
 
-export function TodoList() {
-  const groupedTodos = groupTodosByCategory(mockTodos);
-
-  return (
-    <div>
-      {Object.entries(groupedTodos).map(([category, todos]) => (
-        <div key={category}>
-          <h2>{category.charAt(0).toUpperCase() + category.slice(1)}</h2>
-          {todos.map(todo => (
-            <TodoItem key={todo.id} {...todo} />
-          ))}
-        </div>
-      ))}
-    </div>
-  );
+const formatCategory = (category :string) => {
+    let formattedCategory:string = "";
+    switch(category){
+        case "personal": formattedCategory += "🥷"; break;
+        case"work": formattedCategory+= "🗒️"; break;
+        case "home": formattedCategory += "🏠"; break;
+        case "other": formattedCategory+= "🤷‍♂️"; break;
+        default: break;
+    }
+    formattedCategory += ` ${category.charAt(0).toUpperCase() + category.slice(1)}`
+    return formattedCategory;
 }
+
+export function TodoList() {
+    const [todos, setTodos] = useState<ITodoItem[]>(tasks);
+  
+    const onToggleCompleted = (id?: number) => {
+      const updatedTodos = todos.map(todo => {
+        if (todo.id === id) {
+          return { ...todo, completed: !todo.completed };
+        }
+        return todo;
+      });
+      setTodos(updatedTodos);
+    };
+
+    const onDelete = (id?: number)=> {
+        const updatedTodos = todos.filter(todo=> todo.id !== id);
+        setTodos(updatedTodos)
+    }
+  
+    const groupedTodos = groupTodosByCategory(todos);
+    const navigate = useNavigate();
+    const handleButtonClick = () => {   
+        navigate('/newtask');
+      };
+  
+    return (
+      <div>
+        {Object.entries(groupedTodos).map(([category, todosInCategory]) => (
+          <div key={category}>
+            <h2>{formatCategory(category)}</h2>
+            {todosInCategory.map(todo => (
+              <TodoItem
+                key={todo.id}
+                {...todo}
+                onToggleCompleted={onToggleCompleted}
+                onDelete={onDelete} 
+                onEdit={(id) => console.log(`Edit item ${id}`)}
+              />
+            ))}
+          </div>
+        ))}
+        <button onClick={handleButtonClick}>Add Task</button>
+      </div>
+    );
+  }

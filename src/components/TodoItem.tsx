@@ -1,37 +1,28 @@
 
-export interface ITodoItem {
-    id: number;
-    title: string;
-    category: "personal" | "work" | "home" | "other";
-    completed: boolean;
-    onToggleCompleted: (id: number) => void;
-    onDelete: (id: number) => void;
-    onEdit: (id: number) => void;
-    author: string; 
-    createdAt: string; 
+import { ITodoItem } from "../assets/data/tasks";
+
+  interface ITodoItemProps extends ITodoItem{  
+    onToggleCompleted: (id?: number) => void;
+    onDelete: (id?: number) => void;
+    onEdit: (id?: number) => void;
   }
-  export function TodoItem(props: ITodoItem) {
+  export function TodoItem(props: ITodoItemProps) {
     const { id, title, category, completed, onToggleCompleted, onDelete, onEdit, author, createdAt } = props;
   
     const formattedDate = new Date(createdAt).toLocaleString('en-GB', {
       year: 'numeric',
-      month: 'long',
+      month: '2-digit',
       day: 'numeric',
       hour: '2-digit',
       minute: '2-digit',
     });
-  
-    // Function to handle the custom checkbox click
-    const handleCheckboxClick = () => {
-      onToggleCompleted(id);
-    };
   
     return (
       <article className={`todoItem ${category}`}>
         <div className="todoInfo">
           <div
             className={`customCheckbox ${completed ? "checked" : ""}`}
-            onClick={handleCheckboxClick}      
+            onClick={() => onToggleCompleted(id)} 
           ></div>
           <div className={`todoDetails ${completed ? "completed" : ""}`}>
             <header>
@@ -49,4 +40,5 @@ export interface ITodoItem {
       </article>
     );
   }
+  
   

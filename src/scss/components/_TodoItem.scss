@@ -86,7 +86,7 @@
   }
 
   .actionButtons{
-
+    user-select: none;
     .edit{
         cursor: pointer;
         font-size: 1.8rem;
@@ -97,6 +97,18 @@
         cursor: pointer;
         font-size: 1.8rem;
         color: rgb(189, 31, 31);
+    }
+    span:hover{
+        filter: drop-shadow(0.4px 0.4px 0.2px) drop-shadow(1px 1px 3px rgb(177, 177, 177, 0.4));
+        
+    }
+
+    .delete:active{
+        color: rgb(253, 46, 46);
+    }
+
+    .edit:active{
+        color: #6e6e6e;
     }
   }
 

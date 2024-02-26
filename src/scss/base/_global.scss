@@ -8,6 +8,10 @@
     font-family:  "Red Hat Display", sans-serif;
 }
 
+body{
+  background-color: $body-bg-clr;
+}
+
 button {
     background-color: $button-background-color;
     color: $button-text-color;
@@ -22,4 +26,20 @@ button {
     &:hover {
       background-color: darken($button-background-color, 10%); 
     }
+  }
+
+  nav{
+   display: flex;
+   flex-direction: column;
+  }
+
+  nav a {
+    text-decoration: none;
+    margin: 5px 20px;
+  }
+
+  .main{
+    padding: 30px;
+    display: grid;
+    grid-template-columns: 2fr 6fr 1fr;
   }

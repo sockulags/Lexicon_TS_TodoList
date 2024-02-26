@@ -1,0 +1,43 @@
+form{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    gap: 10px;
+}
+
+label, input, select{
+    width: 100%;
+}
+
+button{
+    width: fit-content;
+}
+
+label, input, select, button{
+    font-size: 20px;
+}
+
+label{
+font-weight: 500;
+}
+
+input,select{
+    border: none;
+    padding: 3px 6px;
+    text-decoration: none;
+}
+
+input:focus{
+    outline: none;
+    border-bottom: 2px solid #ccc; 
+}
+
+select:focus{
+    outline: none;
+    border-bottom: 2px solid #ccc; 
+}
+
+
+
