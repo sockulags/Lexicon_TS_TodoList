@@ -5,14 +5,10 @@ export interface ITodoItem {
     completed: boolean;
     author: string; 
     createdAt: string; 
-    occuring?: occuringDays[]
+    occuring?: string[]
   }
 
-
-  interface occuringDays {
-    id: number;
-    days: string[];
-  }
+  export const weekDays: string[] = ["mon", "tue", "wed", "thur", "fri", "sat", "sun"];
 
   export const tasks: ITodoItem[] = [
     {

@@ -1,8 +1,7 @@
 form{
     display: flex;
     flex-direction: column;
-    width: 100%;
-    max-width: 500px;
+    width: 100%; 
     margin: 0 auto;
     gap: 10px;
     box-shadow: -2px -2px 5px rgba(255, 255, 255, 1),
@@ -13,6 +12,12 @@ form{
     h1{
         text-align: left;
     }
+    button{
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
 }
 
 label, input, select{
@@ -46,6 +51,5 @@ select:focus{
     outline: none;
     border-bottom: 2px solid #ccc; 
 }
-
 
 

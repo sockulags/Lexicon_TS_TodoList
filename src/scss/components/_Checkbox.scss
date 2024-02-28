@@ -1,42 +1,49 @@
-.checkbox-container {
-    position: relative;
+.radio-container{
     display: flex;
     align-items: center;
-    flex-wrap: wrap;
-    border-radius: 10px;
-    
-     
 
-      & label {        
-        position: relative; 
-        cursor: pointer;
-        width: calc(100% * 1/7 - 6px);
-        margin: 3px;
-        
-        
-        & input[type="checkbox"] {
-          position: absolute;
-          opacity: 0;
-        }
-        
-        & :checked ~ .icon-box {
-          box-shadow: inset -2px -2px 5px rgb(218, 218, 218),
-                inset 3px 3px 5px rgba(0, 0, 0, 0.1);
-          
-        }
-        
-        & .icon-box {  
-        background-color: rgb(255, 255, 255);    
-          padding: 3px;
-          font-size: 14px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          box-shadow: -2px -2px 5px rgba(255, 255, 255, 1),
-                3px 3px 5px rgba(0, 0, 0, 0.1);
-
-          
-        }
-      }
+    h2{
+        font-size: 20px;
+        flex: 2;
+        font-weight: 500;
     }
+    margin:10px 0;
+}
+
+.radio-inputs {
+    position: relative;
+    display: flex;    
+    border-radius: 0.5rem;
+    background-color: #EEE;
+    box-sizing: border-box;
+    box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
+   padding: 2px;
+    flex: 1;
+    font-size: 14px;
+  }
   
+  .radio-inputs .radio {
+    flex: 1 1 auto;
+    text-align: center;
+    margin: 1px;
+  }
+  
+  .radio-inputs .radio input {
+    display: none;
+  }
+  
+  .radio-inputs .radio .name {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    border: none;
+   padding: 3px;   
+    transition: all .15s ease-in-out;
+    font-size: 12px;
+  }
+  
+  .radio-inputs .radio input:checked + .name {
+    background-color: #fff;   
+  }

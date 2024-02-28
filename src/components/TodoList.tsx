@@ -1,11 +1,13 @@
 import { TodoItem } from './TodoItem';
 import { tasks, ITodoItem } from "../assets/data/tasks";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { CustomConfirm } from './CustomConfirm';
 
 
 
 const groupTodosByCategory = (todos: ITodoItem[]): Record<string, ITodoItem[]> => {
+
     const groups: Record<string, ITodoItem[]> = {};
     for (const item of todos) {
       if (!groups[item.category]) {
@@ -31,6 +33,11 @@ const formatCategory = (category :string) => {
 
 export function TodoList() {
     const [todos, setTodos] = useState<ITodoItem[]>(tasks);
+    const [selectedTodo, setSelectedTodo] = useState<ITodoItem | null>(null);
+
+    useEffect(() => {
+      setTodos(tasks);
+  }, []);
   
     const onToggleCompleted = (id?: number) => {
       const updatedTodos = todos.map(todo => {
@@ -42,10 +49,29 @@ export function TodoList() {
       setTodos(updatedTodos);
     };
 
-    const onDelete = (id?: number)=> {
-        const updatedTodos = todos.filter(todo=> todo.id !== id);
-        setTodos(updatedTodos)
+    const onDelete = (id?: number) => {
+      if (id !== undefined) {
+           const todoToDelete = todos.find(todo => todo.id === id);
+          if (todoToDelete) {
+              setSelectedTodo(todoToDelete);
+          }
+      }
+  };
+  const handleDeleteConfirm = () => {
+    if (selectedTodo) {
+        const updatedTodos = todos.filter(todo => todo.id !== selectedTodo.id);
+        setTodos(updatedTodos);
+        setSelectedTodo(null); 
     }
+};
+
+const handleDeleteCancel = () => {
+    setSelectedTodo(null); 
+};
+
+const message:string[] = ["Are you sure you want to delete this?", "If this task is an occurring task, the deletion will lead to occurring tasks of this to also be deleted."]
+
+
 
     const nav = useNavigate();
     const onEdit = (id: number) => {
@@ -75,6 +101,14 @@ export function TodoList() {
           </div>
         ))}
         <button onClick={handleButtonClick}>Add Task</button>
+        {selectedTodo && (
+                <CustomConfirm
+                confirmation={message[0]}
+                    message={message[1]}
+                    onConfirm={handleDeleteConfirm}
+                    onCancel={handleDeleteCancel}
+                />
+            )}
       </div>
     );
   }

@@ -22,6 +22,7 @@ button {
     cursor: pointer;
     box-shadow: $button-box-shadow;
     transition: all 0.3s ease; 
+    margin-top: 15px;
   
     &:hover {
       background-color: darken($button-background-color, 10%); 

@@ -1,4 +1,4 @@
-import React from 'react';
+import {useEffect, useState} from 'react';
 
 interface CheckboxProps{
     name: string;
@@ -7,13 +7,19 @@ interface CheckboxProps{
 
 
 function Checkbox ( {name, checked }:CheckboxProps)  {
+const [isChecked, setIsChecked] = useState<boolean>();
+
+useEffect(() => {
+    setIsChecked(checked)
+},[checked])
+
   return (
     <>
-    <label>
-        <input type="checkbox" />
-        <div className="icon-box">
+    <label className='radio'>
+        <input type="checkbox" checked={isChecked} onChange={() => setIsChecked(!isChecked)}/>
+        <span className="name">
        {name}
-       </div>
+       </span>
       </label>
     </>
   );
