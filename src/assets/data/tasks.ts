@@ -1,10 +1,17 @@
 export interface ITodoItem {
-    id?: number;
+    id: number;
     title: string;
     category:string;
     completed: boolean;
     author: string; 
     createdAt: string; 
+    occuring?: occuringDays[]
+  }
+
+
+  interface occuringDays {
+    id: number;
+    days: string[];
   }
 
   export const tasks: ITodoItem[] = [
@@ -15,7 +22,8 @@ export interface ITodoItem {
         completed: false,
         author: 'Lucas Skog',
         createdAt: new Date().toISOString(), 
-      },
+        occuring: [],
+    },
       {
         id: 2,
         title: 'Build a React app',

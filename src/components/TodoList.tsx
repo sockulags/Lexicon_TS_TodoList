@@ -46,6 +46,11 @@ export function TodoList() {
         const updatedTodos = todos.filter(todo=> todo.id !== id);
         setTodos(updatedTodos)
     }
+
+    const nav = useNavigate();
+    const onEdit = (id: number) => {
+        nav("/edittask/" + id)
+    }
   
     const groupedTodos = groupTodosByCategory(todos);
     const navigate = useNavigate();
@@ -64,7 +69,7 @@ export function TodoList() {
                 {...todo}
                 onToggleCompleted={onToggleCompleted}
                 onDelete={onDelete} 
-                onEdit={(id) => console.log(`Edit item ${id}`)}
+                onEdit={onEdit}
               />
             ))}
           </div>

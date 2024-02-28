@@ -4,7 +4,7 @@ import { ITodoItem } from "../assets/data/tasks";
   interface ITodoItemProps extends ITodoItem{  
     onToggleCompleted: (id?: number) => void;
     onDelete: (id?: number) => void;
-    onEdit: (id?: number) => void;
+    onEdit: (id: number) => void;
   }
   export function TodoItem(props: ITodoItemProps) {
     const { id, title, category, completed, onToggleCompleted, onDelete, onEdit, author, createdAt } = props;

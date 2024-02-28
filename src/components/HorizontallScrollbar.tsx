@@ -29,7 +29,7 @@ export function HorizontalScrollbar() {
           </div>
         ))}
       </div>
-      <h1><span>arrow_left</span>{monthYear}<span>arrow_right</span></h1>
+      <h1><span className="material-symbols-outlined">arrow_left</span>{monthYear}<span className="material-symbols-outlined">arrow_right</span></h1>
     </div>
   );
 }

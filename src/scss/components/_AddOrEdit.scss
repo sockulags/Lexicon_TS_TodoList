@@ -5,6 +5,14 @@ form{
     max-width: 500px;
     margin: 0 auto;
     gap: 10px;
+    box-shadow: -2px -2px 5px rgba(255, 255, 255, 1),
+    3px 3px 5px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    background-color: aliceblue;
+    border-radius: 10px;
+    h1{
+        text-align: left;
+    }
 }
 
 label, input, select{

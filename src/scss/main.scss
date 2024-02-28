@@ -7,5 +7,6 @@
 
 // #### Components ####
 @use "./components/TodoItem";
-@use "./components/NewTodoItem";
+@use "./components/AddOrEdit";
 @use "./components/HorizontallScrollbar";
+@use "./components/Checkbox"
