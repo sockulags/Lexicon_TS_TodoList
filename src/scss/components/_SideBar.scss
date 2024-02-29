@@ -1,0 +1,49 @@
+.sideBar{
+    border-right: 2px solid #ccc;
+    padding-top: 30px;
+    margin-right: 30px;  
+}
+
+.sorting-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;   
+    gap: 0.8em;
+    width: 100%;  
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 2px solid #ccc;
+  
+  .sorting-checkbox{   
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding-left: 20px;
+
+    .customCheckbox{
+      align-self: center;
+      &.checked {
+        background-color: #fff;
+    
+        &:after {
+          content: '';
+          position: absolute;
+          left: 25%;
+          top: -25%;
+          width: 8px;
+          height: 16px;
+          border: solid #333333;
+          border-width: 0 5px 5px 0;
+          transform: rotate(45deg);
+        }
+      }
+    }
+    
+
+    .checkbox-title{
+        font-size: 20px;
+        font-weight: 400;
+    }
+  }
+  
+}
