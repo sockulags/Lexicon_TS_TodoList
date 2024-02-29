@@ -1,46 +1,53 @@
 import { TodoItem } from './TodoItem';
-import { tasks, ITodoItem } from "../assets/data/tasks";
+import { tasks, ITodoItem, weekDays } from "../assets/data/tasks";
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { CustomConfirm } from './CustomConfirm';
+import todoImg from "../assets/todo_icon.svg";
 
-const groupTodosByCategory = (todos: ITodoItem[], sort: string[]): Record<string, ITodoItem[]> => {
-    const groups: Record<string, ITodoItem[]> = {};
-    if (sort.length === 0) {
-        groups[""] = todos;
-    } else {
-        for (const item of todos) {
-            if (sort.includes(item.category)) {
-                if (!groups[item.category]) {
-                    groups[item.category] = [];
-                }
-                groups[item.category].push(item);
-            }
-        }
-    }
-    return groups;
-};
-
-const formatCategory = (category: string) => {
-    let formattedCategory: string = "";
-    switch (category) {
-        case "personal": formattedCategory += "🥷"; break;
-        case "work": formattedCategory += "🗒️"; break;
-        case "home": formattedCategory += "🏠"; break;
-        case "other": formattedCategory += "🤷‍♂️"; break;
-        default: break;
-    }
-    formattedCategory += ` ${category.charAt(0).toUpperCase() + category.slice(1)}`
-    return formattedCategory;
-}
 
 interface TodoListProps {
     sort: string[];
 }
 
 export function TodoList({ sort }: TodoListProps) {
+    const { date } = useParams();
     const [todos, setTodos] = useState<ITodoItem[]>(tasks);
     const [selectedTodo, setSelectedTodo] = useState<ITodoItem | null>(null);
+
+    const groupTodosByCategory = (todos: ITodoItem[], sort: string[]): Record<string, ITodoItem[]> => {
+        const groups: Record<string, ITodoItem[]> = {};
+        if (sort.length === 0) {
+            groups[""] = todos;
+        } else {
+            for (const item of todos) {
+                if (sort.includes(item.category)) {
+                    if (!groups[item.category]) {
+                        groups[item.category] = [];
+                    }
+                    groups[item.category].push(item);
+                }
+            }
+        }
+        return groups;
+    };
+
+    const formatCategory = (category: string) => {
+        let formattedCategory: string = "";
+        switch (category) {
+            case "personal":
+                formattedCategory += "🥷"; break;
+            case "work":
+                formattedCategory += "🗒️"; break;
+            case "home":
+                formattedCategory += "🏠"; break;
+            case "other":
+                formattedCategory += "🤷‍♂️"; break;
+            default: break;
+        }
+        formattedCategory += ` ${category.charAt(0).toUpperCase() + category.slice(1)}`
+        return formattedCategory;
+    }
 
     useEffect(() => {
         setTodos(tasks);
@@ -65,6 +72,20 @@ export function TodoList({ sort }: TodoListProps) {
         }
     };
 
+    const getWeekdayFromParams = () => {
+        if (date) {
+            const year = date.slice(0, 4);
+            const month = parseInt(date.slice(4, 6)) - 1;
+            const day = date.slice(6, 8);
+
+            const todaysDate = new Date(parseInt(year), month, parseInt(day))
+            return todaysDate.getDay();
+        } else{
+          const today = new Date();
+          return today.getDay();
+    }
+    }
+
     const handleDeleteConfirm = () => {
         if (selectedTodo) {
             const updatedTodos = todos.filter(todo => todo.id !== selectedTodo.id);
@@ -82,19 +103,28 @@ export function TodoList({ sort }: TodoListProps) {
     const nav = useNavigate();
     const onEdit = (id: number) => {
         nav("/edittask/" + id)
-    }
+    } 
 
-    const groupedTodos = groupTodosByCategory(todos, sort);
-    const navigate = useNavigate();
+    const filteredTodos = todos.filter(todo => {
+        if (todo.occuring && todo.occuring.includes(weekDays[getWeekdayFromParams()])) {
+            return true;
+        }
+        if (!todo.occuring || todo.occuring.length === 0) {
+            return true;
+        }
+        return false;
+    });
+
+    const groupedTodos = groupTodosByCategory(filteredTodos, sort);
     const handleButtonClick = () => {
-        navigate('/newtask');
+        nav('/newtask');
     };
 
     return (
         <div className="todoList-container">
             {Object.entries(groupedTodos).map(([category, todosInCategory]) => (
                 <div key={category}>
-                    <h2>{category ? formatCategory(category) : "Tasks"}</h2>
+                    <h2 className="task-header">{category ? formatCategory(category) : <div style={{height: "33px", width: "33px"}}><img style={{height: "100%"}}src={todoImg}/>Tasks </div>  }</h2>
                     {todosInCategory.map(todo => (
                         <TodoItem
                             key={todo.id}
@@ -106,7 +136,7 @@ export function TodoList({ sort }: TodoListProps) {
                     ))}
                 </div>
             ))}
-            <button onClick={handleButtonClick}>Add Task</button>
+            <button onClick={handleButtonClick}>+ Add Task</button>
             {selectedTodo && (
                 <CustomConfirm
                     confirmation={message[0]}

@@ -38,7 +38,10 @@ const [sortOptions, setSortedOptions] = useState<string[]>([]);
 
   return (
     <Router>
-      <HorizontalScrollbar />
+      <Routes>
+        <Route path="/" element={<HorizontalScrollbar />}/>
+        <Route path="/:date" element={<HorizontalScrollbar />}/>
+      </Routes>
       <div className="main">
         <SideBar onToggleSorted={onToggleSorted}/>
         <Routes>

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 interface SideBarProps {
@@ -15,11 +15,20 @@ export function SideBar({ onToggleSorted }: SideBarProps) {
     setCheckedCategories(updatedCategories);
   };
 
+  const nav = useNavigate();
+  const handleButtonClick= () => {
+        nav("/newtask");
+  }
+
+  const handleHomeClick = () => {
+    nav("/");
+  }
+
   return (
     <div className="sideBar">
       <nav>
-        <Link to="/">Home</Link>
-        <Link to="/newtask">Add Task</Link>
+      <button onClick={handleHomeClick}><span className="home-icon material-symbols-outlined">home</span>Home</button>
+        <button onClick={handleButtonClick}>+ Add Task</button>
       </nav>
       <div className="sorting-container">
         {categories.map((c, index) => (

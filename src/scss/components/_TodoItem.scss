@@ -30,6 +30,7 @@
     justify-content: space-between;
     border-radius: 20px;
     padding: 1rem 2rem;
+    border: 1px solid #ccc;
   }
   
   .todoInfo {
@@ -58,6 +59,15 @@
     }
   }
   
+  .task-header{
+    margin-bottom: 5px;
+
+    div{
+      display: flex;
+      gap: 5px;
+    }
+  }
+
   .customCheckbox {
     display: inline-block;
     width: 20px;
@@ -68,6 +78,7 @@
     margin-right: 2rem;
     position: relative; 
     user-select: none;
+    border: 1px solid #ccc;
   
     &:focus {
       outline: none;      

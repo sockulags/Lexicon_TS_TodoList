@@ -10,9 +10,9 @@ h1{
     font-size: 20px;      
     display: flex;
     justify-content: center;
-    align-items: center;       
-    border-bottom: 2px solid #ccc;
+    align-items: center;
     padding: 3px;
+    margin-top: 10px;
     span{
         cursor: pointer;
     }
@@ -29,6 +29,7 @@ h1{
     height: 100px;
     background-color: #e2e2e1;      
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 5px;
     cursor: pointer;
 
     .day-name{
@@ -43,7 +44,7 @@ h1{
         font-weight: 600;
         font-size: 20px;
        
-        background-color: #ff5c5c;
+        background-color: #fac5c5;
         padding-bottom: 5px;
     }
     .date{
@@ -68,4 +69,15 @@ h1{
   .date{
     background-color: #fcf2f2;
   }   
+}
+
+.active-day{
+  transform: scale(1.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  .day-name{
+    background-color: #ff5c5c;
+  }
+  .date{
+    background-color: #fcfcfc;
+  }
 }

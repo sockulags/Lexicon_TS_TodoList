@@ -8,7 +8,7 @@ export interface ITodoItem {
     occuring?: string[]
   }
 
-  export const weekDays: string[] = ["mon", "tue", "wed", "thur", "fri", "sat", "sun"];
+  export const weekDays: string[] = ["sun", "mon", "tue", "wed", "thur", "fri", "sat"];
 
   export const tasks: ITodoItem[] = [
     {
